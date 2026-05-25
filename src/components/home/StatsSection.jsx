@@ -107,12 +107,12 @@ const StatsSection = () => {
           }}
         />
         
-        {/* Top center soft purple glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-12.5 bg-[radial-linear(circle_at_center,rgba(124,58,237,0.12),transparent_60%)]" />
+        {/* Top center soft blue glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-12.5 bg-[radial-linear(circle_at_center,rgba(59,130,246,0.12),transparent_60%)]" />
         
         {/* Side ambient lights for dynamic  */}
-        <div className="absolute -left-1/4 top-1/3 w-125 h-125 rounded-full bg-violet-900/10 blur-[130px] opacity-75" />
-        <div className="absolute -right-1/4 bottom-1/3 w-125 h-125 rounded-full bg-indigo-900/10 blur-[130px] opacity-75" />
+        <div className="absolute -left-1/4 top-1/3 w-125 h-125 rounded-full bg-blue-900/10 blur-[130px] opacity-75" />
+        <div className="absolute -right-1/4 bottom-1/3 w-125 h-125 rounded-full bg-orange-950/10 blur-[130px] opacity-75" />
       </div>
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
@@ -123,13 +123,13 @@ const StatsSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/5 px-4.5 py-1.5 shadow-[0_0_15px_rgba(124,58,237,0.06)]"
+            className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/5 px-4.5 py-1.5 shadow-[0_0_15px_rgba(59,130,246,0.06)]"
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
             </span>
-            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-violet-300/90">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-300/90">
               Trusted by Thousands Worldwide
             </span>
           </motion.div>
@@ -142,7 +142,7 @@ const StatsSection = () => {
             className="mt-6 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-[1.15]"
           >
             Assisting over{" "}
-            <span className="bg-linear-to-r from-violet-400 via-fuchsia-300 to-indigo-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-blue-400 via-sky-300 to-orange-400 bg-clip-text text-transparent">
               15,000
             </span>{" "}
             job seekers find their dream positions.
