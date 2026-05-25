@@ -82,10 +82,10 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Social Icons + Copyright */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-12 border-t border-zinc-900/80">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-12 border-t border-zinc-900/80 w-full">
           
           {/* Social Media Links */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-center sm:justify-start">
             {/* Facebook */}
             <Link 
               href="#" 
@@ -115,11 +115,11 @@ export default function Footer() {
           </div>
 
           {/* Copyright & Legal Links */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 text-[13px] text-zinc-500 font-medium">
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-[13px] text-zinc-500 font-medium text-center sm:text-right">
             <span>Copyright 2024 — Programming Hero</span>
             <span className="hidden sm:inline text-zinc-800">|</span>
-            <div className="flex items-center gap-3">
-              <Link href="/#" className="hover:text-zinc-300 transition-colors">
+            <div className="flex items-center gap-3 justify-center">
+              <Link href="#" className="hover:text-zinc-300 transition-colors">
                 Terms & Policy
               </Link>
               <span className="text-zinc-800">-</span>
