@@ -97,25 +97,9 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {isOpen && (
-        <>
-          <style dangerouslySetInnerHTML={{__html: `
-            @keyframes menuFadeIn {
-              from {
-                opacity: 0;
-                transform: translateY(-8px);
-              }
-              to {
-                opacity: 1;
-                transform: translateY(0);
-              }
-            }
-            .animate-menu-slide {
-              animation: menuFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            }
-          `}} />
-          <div 
-            className="lg:hidden w-full bg-[#0D0D0E]/98 backdrop-blur-xl border-t border-zinc-900 px-6 py-8 flex flex-col gap-8 shadow-2xl transition-all duration-300 animate-menu-slide"
-          >
+        <div 
+          className="lg:hidden w-full bg-[#0D0D0E]/98 backdrop-blur-xl border-t border-zinc-900 px-6 py-8 flex flex-col gap-8 shadow-2xl transition-all duration-300 animate-menu-slide"
+        >
             <div className="flex flex-col gap-2">
               <span className="text-[11px] font-bold tracking-wider text-zinc-500 uppercase px-4 mb-2">Navigation</span>
               <ul className="flex flex-col gap-2">
@@ -176,7 +160,6 @@ export default function Navbar() {
               </Link>
             </div>
           </div>
-        </>
       )}
     </nav>
   );
