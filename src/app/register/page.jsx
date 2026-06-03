@@ -12,7 +12,7 @@ import {
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BiUser, BiEnvelope, BiLockAlt } from "react-icons/bi";
+import { BiUser, BiEnvelope, BiLockAlt, BiBuilding } from "react-icons/bi";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
@@ -24,6 +24,7 @@ const SignUp = () => {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("seeker");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -35,6 +36,7 @@ const SignUp = () => {
       name: user.fullName,
       email: user.email,
       password: user.password,
+      role: user.role,
       callbackURL: "/signin",
     });
 
@@ -297,6 +299,65 @@ const SignUp = () => {
               <FieldError className="text-xs text-red-400 mt-1.5 pl-1 font-semibold" />
             </TextField>
 
+            {/* Role based  */}
+            <input type="hidden" name="role" value={selectedRole} />
+            <div className="flex flex-col gap-3">
+              <label className="text-sm font-semibold text-zinc-300">
+                Join as
+              </label>
+              <div className="grid grid-cols-2 gap-4 w-full">
+                {/* Job Seeker Card */}
+                <div
+                  onClick={() => setSelectedRole("seeker")}
+                  className={`relative flex flex-col items-center justify-center p-5 rounded-2xl border cursor-pointer transition-all duration-300 select-none overflow-hidden ${
+                    selectedRole === "seeker"
+                      ? "border-blue-500 bg-blue-500/10 shadow-[0_0_20px_rgba(59,130,246,0.15)]"
+                      : "border-zinc-800/80 bg-zinc-900/20 hover:border-zinc-700/80 hover:bg-zinc-900/40"
+                  }`}
+                >
+                  <div className={`p-3 rounded-xl border transition-colors duration-300 ${
+                    selectedRole === "seeker"
+                      ? "border-blue-500/30 bg-blue-500/10 text-blue-400"
+                      : "border-zinc-800 bg-zinc-950 text-zinc-400"
+                  }`}>
+                    <BiUser className="size-6" />
+                  </div>
+                  <span className="mt-3 font-bold text-sm text-white">Job Seeker</span>
+                  <span className="text-[11px] text-zinc-500 mt-1 text-center font-medium leading-tight">
+                    Looking for new opportunities
+                  </span>
+                  {selectedRole === "seeker" && (
+                    <div className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
+                  )}
+                </div>
+
+                {/* Recruiter Card */}
+                <div
+                  onClick={() => setSelectedRole("recruiter")}
+                  className={`relative flex flex-col items-center justify-center p-5 rounded-2xl border cursor-pointer transition-all duration-300 select-none overflow-hidden ${
+                    selectedRole === "recruiter"
+                      ? "border-orange-500 bg-orange-500/10 shadow-[0_0_20px_rgba(249,115,22,0.15)]"
+                      : "border-zinc-800/80 bg-zinc-900/20 hover:border-zinc-700/80 hover:bg-zinc-900/40"
+                  }`}
+                >
+                  <div className={`p-3 rounded-xl border transition-colors duration-300 ${
+                    selectedRole === "recruiter"
+                      ? "border-orange-500/30 bg-orange-500/10 text-orange-400"
+                      : "border-zinc-800 bg-zinc-950 text-zinc-400"
+                  }`}>
+                    <BiBuilding className="size-6" />
+                  </div>
+                  <span className="mt-3 font-bold text-sm text-white">Recruiter</span>
+                  <span className="text-[11px] text-zinc-500 mt-1 text-center font-medium leading-tight">
+                    Hiring top-tier talent
+                  </span>
+                  {selectedRole === "recruiter" && (
+                    <div className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]" />
+                  )}
+                </div>
+              </div>
+            </div>
+
             {/* Submit Button */}
             <Button
               type="submit"
@@ -323,7 +384,7 @@ const SignUp = () => {
           <Button
             onClick={signinWithGoogle}
             variant="outline"
-            className="flex w-full max-w-sm mx-auto lg:mx-0 items-center justify-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/30 py-6 text-[15px] font-bold text-zinc-300 transition-all hover:bg-zinc-900/80 hover:border-zinc-700 shadow-sm hover:text-white cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
+            className="flex w-full  mx-auto lg:mx-0 items-center justify-center gap-3 rounded-xl border border-zinc-800 bg-zinc-900/30 py-6 text-[15px] font-bold text-zinc-300 transition-all hover:bg-zinc-900/80 hover:border-zinc-700 shadow-sm hover:text-white cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
           >
             <FcGoogle className="size-5" />
             Sign Up with Google
