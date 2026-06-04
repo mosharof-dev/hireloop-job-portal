@@ -3,6 +3,7 @@ import React from "react";
 import { FiHome, FiBriefcase, FiUsers, FiSettings, FiCheckCircle, FiX } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navItems = [
   { icon: FiHome, href: "/dashboard/recruiter", label: "Dashboard" },
@@ -23,9 +24,11 @@ const SidebarContent = ({ pathname, setIsMobileMenuOpen }) => (
 
     {/* Profile Info */}
     <div className="px-6 py-6 border-b border-neutral-800 flex items-center gap-3">
-      <img
+      <Image
         src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
         alt="Alex Sterling"
+        width={48}
+        height={48}
         className="w-12 h-12 rounded-full object-cover border border-neutral-700"
       />
       <div className="flex flex-col">

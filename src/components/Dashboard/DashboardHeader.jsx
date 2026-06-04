@@ -40,7 +40,13 @@ export default function DashboardHeader({ onMenuClick }) {
             <span className="text-xs text-neutral-500">TechFlow Inc.</span>
           </div>
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-neutral-800 shrink-0">
-            <img src="https://i.pravatar.cc/150?u=a042581f4e29026024d" alt="Profile" className="w-full h-full object-cover" />
+            <Image 
+              src="https://i.pravatar.cc/150?u=a042581f4e29026024d" 
+              alt="Profile" 
+              width={40} 
+              height={40} 
+              className="w-full h-full object-cover" 
+            />
           </div>
         </div>
       </div>

@@ -43,8 +43,10 @@ const RecruiterDashboard = () => {
   }
 
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Welcome back, {user.name}</h1>
+    <div className=" ">
+      <h1 className="p-4 sm:p-6 lg:p-8 text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-6">
+        Welcome back, {user?.name || "User"}
+      </h1>
       <DashboardStats />
     </div>
   );
