@@ -9,18 +9,4 @@ export const createCompany = async (newCompanyData) => {
  
     return await serverMutation('/api/companies', newCompanyData);
 
-//   try {
-//     const res = await fetch(`${API_URL}/api/companies`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(newCompanyData),
-//     });
-//     const data = await res.json();
-//     return data;
-//   } catch (error) {
-//     console.error("Error creating company:", error);
-//     throw error;
-//   }
 };
