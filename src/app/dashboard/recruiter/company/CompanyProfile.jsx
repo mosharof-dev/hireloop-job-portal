@@ -88,7 +88,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
       </div>
 
       <div className=" mx-auto">
-        {!company ? (
+        {!company?._id ? (
           <div className="flex flex-col items-center justify-center p-12 border border-zinc-800 rounded-xl bg-[#121212] text-center">
             <div className="w-16 h-16 bg-zinc-800/50 rounded-full flex items-center justify-center mb-4">
               <FiBriefcase className="text-2xl text-zinc-400" />
