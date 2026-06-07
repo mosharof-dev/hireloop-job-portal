@@ -5,7 +5,9 @@ import { serverGet } from "../core/server";
  export const getAllJobs = async ()=>{
     return serverGet(`/api/jobs`)
  }
-
+export const getJobById = async (jobId)=>{
+    return serverGet(`/api/jobs/${jobId}`)
+}
 // get company all jobs function
 export const getCompanyJobs = async (companyId, status= 'active') => {
     try {
