@@ -4,12 +4,13 @@ import { Table, Chip, Button, Tooltip } from "@heroui/react";
 import { Eye } from '@gravity-ui/icons';
 import { FiEdit2 } from 'react-icons/fi';
 import { BsTrash2 } from 'react-icons/bs';
+import { getLoggedInRecruiterCompany } from '@/lib/api/companies';
 // Assuming Gravity Icons maps to standard lucide equivalents; adjust paths if using a custom package
 
 
 const RecruiterJobs = async () => {
-    const companyId = 'company_123'; 
-    const jobs = await getCompanyJobs(companyId) || []; 
+    const company = await getLoggedInRecruiterCompany(); 
+    const jobs = await getCompanyJobs(company._id) || []; 
 
     // Helper to determine status chip coloring
     const getStatusColor = (status) => {
