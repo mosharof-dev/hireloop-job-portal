@@ -88,11 +88,11 @@ const JobDetailsPage = async ({ params }) => {
 
   return (
     <div className="min-h-screen bg-[#09090b] text-zinc-300 pb-24 selection:bg-blue-500/30 font-sans">
-      {/* HERO SECTION - Premium Glassmorphic Design */}
+      {/* HERO SECTION -  Design */}
       <div className="relative border-b border-white/5 pt-20 pb-16 overflow-hidden">
         {/* Abstract Ambient Background Glows */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+        <div className="absolute top-0 left-1/4 w-125 h-125 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
+        <div className="absolute bottom-0 right-1/4 w-125 h-125 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen"></div>
         <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 max-w-7xl">
@@ -100,14 +100,14 @@ const JobDetailsPage = async ({ params }) => {
           <div className="flex items-center justify-between mb-8 md:mb-10">
             <Link
               href="/"
-              className="group flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors bg-white/[0.03] hover:bg-white/[0.08] px-4 py-2 rounded-xl border border-white/5 backdrop-blur-md"
+              className="group flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors bg-white/3 hover:bg-white/8 px-4 py-2 rounded-xl border border-white/5 backdrop-blur-md"
             >
               <FiArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Back to Home
             </Link>
             <Link
               href="/jobs"
-              className="group flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors bg-white/[0.03] hover:bg-white/[0.08] px-4 py-2 rounded-xl border border-white/5 backdrop-blur-md"
+              className="group flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors bg-white/3 hover:bg-white/8 px-4 py-2 rounded-xl border border-white/5 backdrop-blur-md"
             >
               Browse All Jobs
               <FiArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -181,9 +181,12 @@ const JobDetailsPage = async ({ params }) => {
             </div>
 
             {/* Top Actions (Desktop) */}
-            <div className="hidden lg:flex flex-col gap-3 shrink-0 min-w-[240px]">
+            <div className="hidden lg:flex flex-col gap-3 shrink-0 min-w-60">
               {/* Animated Apply Button */}
-              <Link href={`/jobs${id}/applay`} className="w-full relative group overflow-hidden rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 text-white py-4 font-bold shadow-[0_0_40px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_60px_-15px_rgba(37,99,235,0.6)]">
+              <Link
+                href={`/jobs/${id}/apply`}
+                className="w-full relative group overflow-hidden rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 text-white py-4 font-bold shadow-[0_0_40px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_60px_-15px_rgba(37,99,235,0.6)]"
+              >
                 <span className="relative z-10 flex items-center justify-center gap-2 text-lg">
                   Apply for this Job{" "}
                   <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -224,7 +227,7 @@ const JobDetailsPage = async ({ params }) => {
                   {respList.map((item, idx) => (
                     <li
                       key={idx}
-                      className="group flex items-start gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
+                      className="group flex items-start gap-4 p-5 rounded-2xl bg-white/2 border border-white/20 hover:bg-white/4 hover:border-white/10 transition-all duration-300"
                     >
                       <div className="w-8 h-8 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-blue-500/20 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all duration-300">
                         <FiCheckCircle className="w-4 h-4 text-blue-400" />
@@ -253,7 +256,7 @@ const JobDetailsPage = async ({ params }) => {
                   {reqList.map((item, idx) => (
                     <li
                       key={idx}
-                      className="group flex items-start gap-4 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
+                      className="group flex items-start gap-4 p-5 rounded-2xl bg-white/2 border border-white/20 hover:bg-white/4 hover:border-white/10 transition-all duration-300"
                     >
                       <div className="w-8 h-8 rounded-full bg-indigo-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-indigo-500/20 group-hover:bg-indigo-500/20 group-hover:scale-110 transition-all duration-300">
                         <div className="w-2 h-2 rounded-full bg-indigo-400"></div>
@@ -304,8 +307,8 @@ const JobDetailsPage = async ({ params }) => {
           <div className="lg:col-span-4">
             {/* Premium Floating Card */}
             <div className="sticky top-28">
-              {/* Fancy gradient border wrapper */}
-              <div className="relative p-[1px] rounded-[2rem] bg-linear-to-b from-white/10 via-white/5 to-transparent shadow-2xl shadow-black/50">
+              {/* Fancy linear border wrapper */}
+              <div className="relative p-px rounded-[2rem] bg-linear-to-b from-white/10 via-white/5 to-transparent shadow-2xl shadow-black/50">
                 <div className="bg-[#0f0f13]/90 backdrop-blur-2xl rounded-[2rem] p-8">
                   <h3 className="text-xl font-bold text-white mb-8 flex items-center gap-2">
                     <div className="w-1.5 h-6 bg-blue-500 rounded-full"></div>
@@ -386,13 +389,16 @@ const JobDetailsPage = async ({ params }) => {
 
                   {/* Sidebar Actions */}
                   <div className="space-y-4 pt-6 border-t border-white/5">
-                    <button className="w-full relative group overflow-hidden rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 text-white py-4.5 font-bold shadow-[0_0_30px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_50px_-15px_rgba(37,99,235,0.6)]">
+                    <Link
+                      href={`/jobs/${id}/apply`}
+                      className="block w-full relative group overflow-hidden rounded-2xl bg-linear-to-r from-blue-600 to-indigo-600 text-white py-4 font-bold shadow-[0_0_30px_-10px_rgba(37,99,235,0.4)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_50px_-15px_rgba(37,99,235,0.6)]"
+                    >
                       <span className="relative z-10 flex items-center justify-center gap-2 text-lg">
                         Apply for this Job{" "}
                         <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </span>
                       <div className="absolute inset-0 bg-linear-to-r from-indigo-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </button>
+                    </Link>
 
                     {/* Mobile Only Extra Buttons */}
                     <div className="flex gap-3 lg:hidden">

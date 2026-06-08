@@ -2,6 +2,7 @@ import { getAllJobs } from '@/lib/api/jobs';
 import React from 'react';
 import JobListing from '@/components/jobs/JobListing';
 import { FiAlertCircle } from 'react-icons/fi';
+import Link from 'next/link';
 
 const GetAllJobs = async () => {
     let jobs = null;
@@ -34,12 +35,12 @@ const GetAllJobs = async () => {
                     <p className="text-zinc-400 text-center max-w-md mb-8 relative z-10">
                         We&apos;re having trouble connecting to our servers right now. Please ensure your internet connection is stable and try again.
                     </p>
-                    <a 
+                    <Link 
                         href="/jobs" 
                         className="px-6 py-2.5 bg-white text-black hover:bg-zinc-200 rounded-xl font-bold transition-all duration-200 active:scale-[0.98] relative z-10"
                     >
                         Try Again
-                    </a>
+                    </Link>
                 </div>
             ) : (
                 <JobListing initialJobs={jobs} />
