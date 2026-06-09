@@ -2,9 +2,11 @@ import { getUserSession } from '@/lib/core/session';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import React from 'react';
-import { FiAlertTriangle, FiArrowLeft } from 'react-icons/fi';
+import { FiAlertTriangle, FiArrowLeft, FiInfo, FiStar, FiCheckCircle } from 'react-icons/fi';
 import { getJobById } from '@/lib/api/jobs';
 import JobApply from './JobApply';
+import { getApplicationByApplicant } from '@/lib/api/application';
+
 const ApplyPage = async ({ params }) => {
     const {id} = await params;
     const user = await getUserSession();
@@ -52,10 +54,92 @@ const ApplyPage = async ({ params }) => {
         );
     }
 
+    const plan = {
+        name: "Basic Plan",
+        maxGeneratorDuration: 4 // Treat this as max application limit
+    };
+    
+    // Safety check in case getApplicationByApplicant fails or returns undefined
+    let application = [];
+    try {
+        application = await getApplicationByApplicant(user.id);
+    } catch (e) {
+        console.error("Failed to fetch applications:", e);
+    }
+
     const job = await getJobById(id);
+    const hasReachedLimit = application.length >= plan.maxGeneratorDuration;
+    const applicationsLeft = Math.max(0, plan.maxGeneratorDuration - application.length);
+
     return (
-        <div>
-            <JobApply applicant={user} job={job} />
+        <div className="bg-[#09090b] min-h-screen pb-12">
+            {/* Top Status Bar / Banner */}
+            <div className="max-w-3xl mx-auto pt-8 px-4 sm:px-6 lg:px-8">
+                {!hasReachedLimit ? (
+                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-4 mb-4 backdrop-blur-md shadow-lg transition-all hover:bg-blue-500/15">
+                        <div className="flex items-center gap-3">
+                            <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
+                                <FiInfo className="w-5 h-5" />
+                            </div>
+                            <div>
+                                <p className="text-zinc-200 text-sm font-medium">
+                                    You have used <span className="text-blue-400 font-bold">{application.length}</span> out of <span className="text-blue-400 font-bold">{plan.maxGeneratorDuration}</span> applications this month.
+                                </p>
+                                <p className="text-zinc-400 text-xs mt-0.5">
+                                    {applicationsLeft} application{applicationsLeft !== 1 ? 's' : ''} remaining in your {plan.name}.
+                                </p>
+                            </div>
+                        </div>
+                        <Link 
+                            href="/pricing" 
+                            className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-1.5 rounded-lg transition-all"
+                        >
+                            <FiStar className="w-3.5 h-3.5 text-amber-400" />
+                            Upgrade
+                        </Link>
+                    </div>
+                ) : (
+                    <div className="mt-8 relative max-w-lg mx-auto">
+                        {/* Premium Glow Background */}
+                        <div className="absolute inset-0 bg-linear-to-r from-amber-500/20 to-orange-600/20 rounded-[2rem] blur-2xl opacity-60"></div>
+                        
+                        <div className="relative bg-[#121214]/90 backdrop-blur-xl border border-amber-500/20 rounded-[2rem] p-8 sm:p-10 shadow-2xl text-center flex flex-col items-center">
+                            <div className="relative mb-6 group">
+                                <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl scale-150 animate-pulse"></div>
+                                <div className="relative w-20 h-20 bg-linear-to-br from-amber-500/20 to-orange-600/20 border border-amber-500/30 rounded-2xl flex items-center justify-center shadow-inner">
+                                    <FiStar className="w-10 h-10 text-amber-400" />
+                                </div>
+                            </div>
+                            
+                            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Application Limit Reached</h2>
+                            <p className="text-zinc-400 text-base leading-relaxed mb-6">
+                                You have used all <span className="text-white font-bold">{plan.maxGeneratorDuration}</span> applications for your <span className="text-amber-400 font-medium">{plan.name}</span> this month. Upgrade to a premium plan to unlock unlimited opportunities!
+                            </p>
+
+                            <div className="flex flex-col gap-3 w-full">
+                                <div className="flex items-center justify-center gap-2 text-sm text-zinc-300 mb-2">
+                                    <FiCheckCircle className="text-emerald-500" /> Apply to more jobs instantly
+                                </div>
+                                <Link 
+                                    href="/pricing"
+                                    className="w-full bg-linear-to-r from-amber-500 to-orange-600 text-white rounded-xl py-3.5 font-bold shadow-[0_0_20px_-5px_rgba(245,158,11,0.4)] hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.6)] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                                >
+                                    <FiStar className="w-5 h-5" /> Upgrade Plan Now
+                                </Link>
+                                <Link 
+                                    href={`/jobs/${id}`}
+                                    className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl py-3.5 font-semibold transition-all duration-300 flex items-center justify-center gap-2 mt-2"
+                                >
+                                    <FiArrowLeft className="w-4 h-4" /> Back to Job Details
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* The Job Apply Form */}
+            {!hasReachedLimit && <JobApply applicant={user} job={job} />}
         </div>
     );
 };
