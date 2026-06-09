@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@heroui/react";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { BiUser, BiEnvelope, BiLockAlt, BiBuilding } from "react-icons/bi";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
@@ -25,6 +25,10 @@ const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedRole, setSelectedRole] = useState("seeker");
+   
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get("redirect") || "/";
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +56,8 @@ const SignUp = () => {
     if (data) {
       toast.success("Registration Successful! 🎉 Please login to continue.");
       await authClient.signOut();
-      router.push("/signin");
+      // router.push("/signin");
+      router.push(`/signin?redirect=${redirectTo}`);
     }
   };
 
@@ -394,7 +399,7 @@ const SignUp = () => {
           <p className="mt-8 text-center lg:text-left text-[14px] text-zinc-400 font-medium">
             Already have an account?{" "}
             <a
-              href="/signin"
+              href={`/signin?redirect=${redirectTo}`}
               className="font-bold text-orange-400 hover:text-orange-300 transition-colors ml-1 inline-flex items-center gap-1 group"
             >
               Sign In{" "}

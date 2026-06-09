@@ -18,10 +18,14 @@ import { toast } from "react-hot-toast";
 import { FaArrowRight } from "react-icons/fa";
 import { FiCpu, FiActivity, FiAward } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Login = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams()
+    const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +50,9 @@ const Login = () => {
 
     if (data) {
       toast.success("Welcome back to HireLoop! 🚀");
-      window.location.href = "/";
+      // window.location.href = "/";
+      router.push(redirectTo);
+
     }
   };
 
@@ -314,7 +320,7 @@ const Login = () => {
           <p className="mt-10 text-center lg:text-left text-[15px] text-zinc-400 font-medium">
             Don&apos;t have an account?{" "}
             <a
-              href="/register"
+              href={`/register?redirect=${redirectTo}`}
               className="font-bold text-orange-400 hover:text-orange-300 transition-colors ml-1 inline-flex items-center gap-1 group"
             >
               Sign Up{" "}
