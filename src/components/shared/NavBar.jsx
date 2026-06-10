@@ -16,7 +16,7 @@ import {
 import { useSession, authClient } from "@/lib/auth-client";
 import { FaRegUserCircle } from "react-icons/fa";
 
-const publicLinks = [
+const baseLinks = [
   { label: "Browse Jobs", href: "/jobs" },
   { label: "Company", href: "/companies" },
   { label: "Pricing", href: "/pricing" },
@@ -126,8 +126,9 @@ export default function Navbar() {
     recruiter: "/dashboard/recruiter",
   };
 
+  const navLinks = [...baseLinks];
   if (user?.email) {
-    publicLinks.push({
+    navLinks.push({
       label: "Dashboard",
       href: dashboard[user?.role || "seeker"],
     });
@@ -154,7 +155,7 @@ export default function Navbar() {
           <div className="flex items-center bg-[#151516]/95 border border-zinc-800/80 rounded-full pl-6 pr-2 py-2 gap-6 shadow-lg shadow-black/30">
             {/* Nav Links */}
             <ul className="flex items-center gap-6">
-              {publicLinks.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -203,7 +204,7 @@ export default function Navbar() {
               Navigation
             </span>
             <ul className="flex flex-col gap-2">
-              {publicLinks.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

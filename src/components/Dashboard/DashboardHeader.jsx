@@ -1,8 +1,13 @@
+"use client";
 import React from "react";
-import { FiSearch, FiMenu } from "react-icons/fi";
+import { FiSearch, FiMenu, FiUser } from "react-icons/fi";
 import Image from "next/image";
+import { useSession } from "@/lib/auth-client";
 
 export default function DashboardHeader({ onMenuClick }) {
+  const { data: sessionData } = useSession();
+  const user = sessionData?.user;
+
   return (
     <header className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-neutral-800 bg-[#161616]">
       {/* Left side: Mobile Menu Toggle & Search Bar */}
@@ -36,17 +41,25 @@ export default function DashboardHeader({ onMenuClick }) {
         {/* Profile */}
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="hidden sm:flex flex-col text-right">
-            <span className="text-sm font-semibold text-white leading-tight">Alex Sterling</span>
-            <span className="text-xs text-neutral-500">TechFlow Inc.</span>
+            <span className="text-sm font-semibold text-white leading-tight capitalize">
+              {user?.name || "Loading..."}
+            </span>
+            <span className="text-xs text-neutral-500 capitalize">
+              {user?.role || "User"}
+            </span>
           </div>
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-neutral-800 shrink-0">
-            <Image 
-              src="https://i.pravatar.cc/150?u=a042581f4e29026024d" 
-              alt="Profile" 
-              width={40} 
-              height={40} 
-              className="w-full h-full object-cover" 
-            />
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-neutral-800 shrink-0 flex items-center justify-center bg-neutral-800">
+            {user?.image ? (
+              <Image 
+                src={user.image} 
+                alt="Profile" 
+                width={40} 
+                height={40} 
+                className="w-full h-full object-cover" 
+              />
+            ) : (
+              <FiUser className="text-neutral-400 size-5 sm:size-6" />
+            )}
           </div>
         </div>
       </div>
