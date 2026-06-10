@@ -55,10 +55,10 @@ export default function UsageBanner({ used, max, isUnlimited, planName }) {
 
                     {/* Text Details */}
                     <div className="flex-1 min-w-0">
-                        <h3 className="text-zinc-200 font-semibold text-base sm:text-lg tracking-tight truncate">
+                        <h3 className="text-white font-bold text-lg sm:text-xl tracking-tight truncate">
                             {planName} Plan Usage
                         </h3>
-                        <p className="text-zinc-400 text-xs sm:text-sm mt-0.5">
+                        <p className="text-zinc-300 text-sm sm:text-base mt-1">
                             You have used <span className={`font-bold ${textColor}`}>{used}</span> out of <span className="text-white font-bold">{isUnlimited ? "Unlimited" : max}</span> applications.
                         </p>
                     </div>
@@ -92,9 +92,9 @@ export default function UsageBanner({ used, max, isUnlimited, planName }) {
                         href="/pricing" 
                         className="w-full sm:w-auto relative group/btn"
                     >
-                        <div className="absolute inset-0 bg-linear-to-r from-amber-500 to-orange-600 rounded-xl blur opacity-40 group-hover/btn:opacity-75 transition duration-300"></div>
-                        <div className="relative flex items-center justify-center gap-2 bg-[#1a1a1f] hover:bg-[#222229] border border-amber-500/30 text-amber-400 px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 shadow-inner group-hover/btn:scale-[1.02]">
-                            <FiStar className="w-4 h-4" />
+                        <div className="absolute inset-0 bg-linear-to-r from-amber-500 to-orange-600 rounded-xl blur opacity-60 group-hover/btn:opacity-100 transition duration-300"></div>
+                        <div className="relative flex items-center justify-center gap-2 bg-linear-to-r from-amber-500 to-orange-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)] group-hover/btn:scale-[1.02]">
+                            <FiStar className="w-5 h-5" />
                             <span>Upgrade</span>
                         </div>
                     </Link>

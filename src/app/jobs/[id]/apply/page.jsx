@@ -5,7 +5,6 @@ import React from 'react';
 import { FiAlertTriangle, FiArrowLeft, FiInfo, FiStar, FiCheckCircle } from 'react-icons/fi';
 import { getJobById } from '@/lib/api/jobs';
 import JobApply from './JobApply';
-import UsageBanner from './UsageBanner';
 import { getApplicationByApplicant } from '@/lib/api/application';
 import { getPlanById } from '@/lib/api/plans';
 
@@ -78,14 +77,46 @@ const ApplyPage = async ({ params }) => {
     return (
         <div className="bg-[#09090b] min-h-screen pb-12">
             {/* Top Status Bar / Banner */}
-            <div className="max-w-3xl mx-auto pt-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto pt-8 px-4 sm:px-6 lg:px-8">
                 {!hasReachedLimit ? (
-                    <UsageBanner 
-                        used={application.length} 
-                        max={maxApps} 
-                        isUnlimited={isUnlimited} 
-                        planName={plan?.name || 'Plan'} 
-                    />
+                    <div className="relative w-full max-w-3xl mx-auto mb-8 group">
+                        {/* Background Glow */}
+                        <div className="absolute inset-0 bg-blue-500/5 rounded-[2rem] blur-xl transition-all duration-500 group-hover:bg-blue-500/10"></div>
+                        
+                        <div className="relative bg-[#121214]/80 backdrop-blur-xl border border-white/5 rounded-[2rem] p-5 sm:p-6 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all duration-300 hover:border-white/10">
+                            
+                            <div className="flex items-center gap-5">
+                                {/* Icon container with pulsing glow matching website theme */}
+                                <div className="relative shrink-0">
+                                    <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-lg scale-150 animate-pulse"></div>
+                                    <div className="relative w-14 h-14 bg-linear-to-br from-blue-500/20 to-indigo-600/10 border border-blue-500/20 rounded-2xl flex items-center justify-center shadow-inner">
+                                        {isUnlimited ? (
+                                            <FiCheckCircle className="w-6 h-6 text-blue-400" />
+                                        ) : (
+                                            <FiInfo className="w-6 h-6 text-blue-400" />
+                                        )}
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <p className="text-white text-base sm:text-lg font-bold tracking-tight">
+                                        You have used <span className="text-blue-400">{application.length}</span> out of <span className="text-blue-400">{isUnlimited ? 'Unlimited' : maxApps}</span> applications.
+                                    </p>
+                                    <p className="text-zinc-400 text-sm mt-1">
+                                        {applicationsLeft} application{applicationsLeft !== 1 ? 's' : ''} remaining in your <span className="text-white font-semibold">{plan?.name || 'Plan'}</span>.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <Link 
+                                href="/pricing" 
+                                className="w-full sm:w-auto shrink-0 bg-linear-to-r from-blue-600 to-indigo-600 text-white rounded-xl px-6 py-3.5 font-bold shadow-[0_0_20px_-5px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_-5px_rgba(37,99,235,0.6)] transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2"
+                            >
+                                <FiStar className="w-4 h-4" />
+                                Upgrade Plan
+                            </Link>
+                        </div>
+                    </div>
                 ) : (
                     <div className="mt-8 relative max-w-lg mx-auto">
                         {/* Premium Glow Background */}
