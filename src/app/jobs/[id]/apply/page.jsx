@@ -6,6 +6,7 @@ import { FiAlertTriangle, FiArrowLeft, FiInfo, FiStar, FiCheckCircle } from 'rea
 import { getJobById } from '@/lib/api/jobs';
 import JobApply from './JobApply';
 import { getApplicationByApplicant } from '@/lib/api/application';
+import { getPlanById } from '@/lib/api/plans';
 
 const ApplyPage = async ({ params }) => {
     const {id} = await params;
@@ -53,11 +54,9 @@ const ApplyPage = async ({ params }) => {
             </div>
         );
     }
-
-    const plan = {
-        name: "Basic Plan",
-        maxGeneratorDuration: 4 // Treat this as max application limit
-    };
+    const plan = await getPlanById(user.plan);
+    console.log("User's current plan details:", plan); // Debug log to check the plan details
+   
     
     // Safety check in case getApplicationByApplicant fails or returns undefined
     let application = [];
@@ -83,7 +82,7 @@ const ApplyPage = async ({ params }) => {
                             </div>
                             <div>
                                 <p className="text-zinc-200 text-sm font-medium">
-                                    You have used <span className="text-blue-400 font-bold">{application.length}</span> out of <span className="text-blue-400 font-bold">{plan.maxGeneratorDuration}</span> applications this month.
+                                    You have used <span className="text-blue-400 font-bold">{application.length}</span> out of <span className="text-blue-400 font-bold">{plan.maxApplicationsPerMonth}</span> applications this month.
                                 </p>
                                 <p className="text-zinc-400 text-xs mt-0.5">
                                     {applicationsLeft} application{applicationsLeft !== 1 ? 's' : ''} remaining in your {plan.name}.

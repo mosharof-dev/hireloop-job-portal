@@ -35,12 +35,13 @@ const SignUp = () => {
     setIsLoading(true);
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
-
+    const planId = user.role === "seeker" ? "seeker_free" : "recruiter_free";
     const { data, error } = await authClient.signUp.email({
       name: user.fullName,
       email: user.email,
       password: user.password,
       role: user.role,
+      plan: planId,
       callbackURL: "/signin",
     });
 

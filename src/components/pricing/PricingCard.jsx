@@ -57,6 +57,7 @@ const PricingCard = ({ plan, index }) => {
 
       <form action="/api/checkout_sessions" method="POST">
         <section>
+          <input type="hidden" name="planId" value={plan.id} />
           <button
             type="submit"
             role="link"

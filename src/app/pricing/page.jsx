@@ -9,6 +9,7 @@ import FAQAccordion from '@/components/pricing/FAQAccordion';
 const jobSeekerPlans = [
     {
         name: "Free",
+        id: "seeker_free",
         price: "$0",
         period: "/forever",
         description: "Perfect for getting started and exploring opportunities.",
@@ -26,6 +27,7 @@ const jobSeekerPlans = [
     },
     {
         name: "Pro",
+        id: "seeker_pro",
         price: "$19",
         period: "/month",
         description: "Ideal for active job seekers wanting more visibility.",
@@ -43,6 +45,7 @@ const jobSeekerPlans = [
     },
     {
         name: "Premium",
+        id: "seeker_premium",
         price: "$39",
         period: "/month",
         description: "For serious professionals who want the ultimate edge.",
@@ -64,6 +67,7 @@ const jobSeekerPlans = [
 const recruiterPlans = [
     {
         name: "Free",
+        id: "recruiter_free",
         price: "$0",
         period: "/forever",
         description: "Great for a company's first year of hiring.",
@@ -81,6 +85,7 @@ const recruiterPlans = [
     },
     {
         name: "Growth",
+        id: "recruiter_growth",
         price: "$49",
         period: "/month",
         description: "For growing teams actively hiring new talent.",
@@ -98,6 +103,7 @@ const recruiterPlans = [
     },
     {
         name: "Enterprise",
+        id: "recruiter_enterprise",
         price: "$149",
         period: "/month",
         description: "Full suite for large organizations and agencies.",
