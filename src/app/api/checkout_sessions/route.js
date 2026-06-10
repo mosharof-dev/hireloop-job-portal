@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
+import { stripe } from '@/lib/stripe';
 
-import { stripe } from '../../../lib/stripe'
+
 
 export async function POST() {
   try {
@@ -13,11 +14,11 @@ export async function POST() {
       line_items: [
         {
           // Provide the exact Price ID (for example, price_1234) of the product you want to sell
-          price: '{{PRICE_ID}}',
+          price: 'price_1TgZ67AXvPYzAzbGSq6qbxH1',
           quantity: 1,
         },
       ],
-     mode: 'subscription',
+      mode: `subscription`,
       success_url: `${origin}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
     });
     return NextResponse.redirect(session.url, 303)
