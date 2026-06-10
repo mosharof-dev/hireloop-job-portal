@@ -121,6 +121,18 @@ export default function Navbar() {
     );
   };
 
+  const dashboard = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+  };
+
+  if (user?.email) {
+    publicLinks.push({
+      label: "Dashboard",
+      href: dashboard[user?.role || "seeker"],
+    });
+  }
+
   return (
     <nav className="w-full bg-[#0D0D0E]/90 backdrop-blur-md border-b border-zinc-900 sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
