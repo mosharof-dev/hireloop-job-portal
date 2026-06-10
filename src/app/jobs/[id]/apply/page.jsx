@@ -5,6 +5,7 @@ import React from 'react';
 import { FiAlertTriangle, FiArrowLeft, FiInfo, FiStar, FiCheckCircle } from 'react-icons/fi';
 import { getJobById } from '@/lib/api/jobs';
 import JobApply from './JobApply';
+import UsageBanner from './UsageBanner';
 import { getApplicationByApplicant } from '@/lib/api/application';
 import { getPlanById } from '@/lib/api/plans';
 
@@ -54,7 +55,8 @@ const ApplyPage = async ({ params }) => {
             </div>
         );
     }
-    const plan = await getPlanById(user.plan);
+    let planData = await getPlanById(user.plan);
+    const plan = Array.isArray(planData) ? planData[0] : planData;
     console.log("User's current plan details:", plan); // Debug log to check the plan details
    
     
@@ -67,36 +69,23 @@ const ApplyPage = async ({ params }) => {
     }
 
     const job = await getJobById(id);
-    const hasReachedLimit = application.length >= plan.maxGeneratorDuration;
-    const applicationsLeft = Math.max(0, plan.maxGeneratorDuration - application.length);
+    
+    const maxApps = plan?.maxApplicationsPerMonth || 0;
+    const isUnlimited = maxApps === 999999;
+    const hasReachedLimit = !isUnlimited && application.length >= maxApps;
+    const applicationsLeft = isUnlimited ? 'Unlimited' : Math.max(0, maxApps - application.length);
 
     return (
         <div className="bg-[#09090b] min-h-screen pb-12">
             {/* Top Status Bar / Banner */}
             <div className="max-w-3xl mx-auto pt-8 px-4 sm:px-6 lg:px-8">
                 {!hasReachedLimit ? (
-                    <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 flex items-start sm:items-center justify-between gap-4 mb-4 backdrop-blur-md shadow-lg transition-all hover:bg-blue-500/15">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400">
-                                <FiInfo className="w-5 h-5" />
-                            </div>
-                            <div>
-                                <p className="text-zinc-200 text-sm font-medium">
-                                    You have used <span className="text-blue-400 font-bold">{application.length}</span> out of <span className="text-blue-400 font-bold">{plan.maxApplicationsPerMonth}</span> applications this month.
-                                </p>
-                                <p className="text-zinc-400 text-xs mt-0.5">
-                                    {applicationsLeft} application{applicationsLeft !== 1 ? 's' : ''} remaining in your {plan.name}.
-                                </p>
-                            </div>
-                        </div>
-                        <Link 
-                            href="/pricing" 
-                            className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/10 px-3 py-1.5 rounded-lg transition-all"
-                        >
-                            <FiStar className="w-3.5 h-3.5 text-amber-400" />
-                            Upgrade
-                        </Link>
-                    </div>
+                    <UsageBanner 
+                        used={application.length} 
+                        max={maxApps} 
+                        isUnlimited={isUnlimited} 
+                        planName={plan?.name || 'Plan'} 
+                    />
                 ) : (
                     <div className="mt-8 relative max-w-lg mx-auto">
                         {/* Premium Glow Background */}
@@ -112,7 +101,7 @@ const ApplyPage = async ({ params }) => {
                             
                             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3 tracking-tight">Application Limit Reached</h2>
                             <p className="text-zinc-400 text-base leading-relaxed mb-6">
-                                You have used all <span className="text-white font-bold">{plan.maxGeneratorDuration}</span> applications for your <span className="text-amber-400 font-medium">{plan.name}</span> this month. Upgrade to a premium plan to unlock unlimited opportunities!
+                                You have used all <span className="text-white font-bold">{maxApps}</span> applications for your <span className="text-amber-400 font-medium">{plan?.name || 'Plan'}</span> this month. Upgrade to a premium plan to unlock unlimited opportunities!
                             </p>
 
                             <div className="flex flex-col gap-3 w-full">

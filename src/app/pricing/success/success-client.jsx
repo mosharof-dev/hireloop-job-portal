@@ -34,7 +34,7 @@ export default function SuccessClient({ customerEmail, amountTotal, currency }) 
         <div className="relative bg-zinc-900/50 backdrop-blur-2xl border border-zinc-800/50 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
           
           {/* Subtle Top Inner Glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-linear-to-r from-transparent via-emerald-500/50 to-transparent" />
 
           {/* Icon Area */}
           <div className="flex justify-center mb-8">
@@ -42,7 +42,7 @@ export default function SuccessClient({ customerEmail, amountTotal, currency }) 
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.2 }}
-              className="relative w-24 h-24 flex items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 shadow-[0_0_50px_rgba(16,185,129,0.4)]"
+              className="relative w-24 h-24 flex items-center justify-center rounded-full bg-linear-to-br from-emerald-400 to-teal-500 shadow-[0_0_50px_rgba(16,185,129,0.4)]"
             >
               <div className="absolute inset-1 rounded-full bg-zinc-950 flex items-center justify-center">
                 <FiCheck className="w-10 h-10 text-emerald-400" strokeWidth={3} />
@@ -64,7 +64,7 @@ export default function SuccessClient({ customerEmail, amountTotal, currency }) 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-zinc-400 text-sm md:text-base max-w-[280px] mx-auto"
+              className="text-zinc-400 text-sm md:text-base max-w-70 mx-auto"
             >
               Your subscription to <strong className="text-emerald-400 font-medium">HireLoop Pro</strong> is now active.
             </motion.p>
@@ -94,7 +94,7 @@ export default function SuccessClient({ customerEmail, amountTotal, currency }) 
             <div className="space-y-4 text-sm">
               <div className="flex justify-between items-center">
                 <span className="text-zinc-500">Billed to</span>
-                <span className="text-zinc-200 font-medium truncate ml-4 max-w-[180px] sm:max-w-[220px]">
+                <span className="text-zinc-200 font-medium truncate ml-4 max-w-45 sm:max-w-55">
                   {customerEmail || "Customer"}
                 </span>
               </div>
@@ -116,10 +116,10 @@ export default function SuccessClient({ customerEmail, amountTotal, currency }) 
             className="flex flex-col gap-3 w-full mt-8"
           >
             <Link
-              href="/dashboard"
+              href="/"
               className="flex items-center justify-center gap-2 w-full bg-white text-black hover:bg-zinc-200 rounded-xl px-6 py-4 text-[16px] font-bold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
             >
-              Go to Dashboard
+              Go to Homepage
               <FiArrowRight className="w-5 h-5 ml-1" />
             </Link>
 

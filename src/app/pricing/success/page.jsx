@@ -1,6 +1,7 @@
 import { stripe } from '@/lib/stripe'
 import { redirect } from 'next/navigation'
 import SuccessClient from './success-client'
+import { submitSubscription } from '@/lib/actions/subscription'
 
 export default async function Success({ searchParams }) {
   const { session_id } = await searchParams
@@ -12,7 +13,7 @@ export default async function Success({ searchParams }) {
     expand: ['line_items', 'payment_intent']
   })
 
-  const { status, customer_details, amount_total, currency } = session;
+  const { status, customer_details, amount_total, currency, metadata } = session;
   const customerEmail = customer_details?.email;
 
   if (status === 'open') {
@@ -20,6 +21,15 @@ export default async function Success({ searchParams }) {
   }
 
   if (status === 'complete') {
+    // Update user's subscription status in the database here if needed, using customerEmail or session.customer as reference
+    const subscriptionData = {
+      email: customerEmail,
+      planId: metadata.planId, // Assuming you passed the planId in metadata when creating the session
+    }
+
+    const res = await submitSubscription(subscriptionData);
+   console.log("Subscription update response:", res);
+
     return (
       <SuccessClient 
         customerEmail={customerEmail} 
