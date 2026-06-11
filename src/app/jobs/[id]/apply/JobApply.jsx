@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { submitApplication } from "@/lib/actions/application";
 
-const JobApply = ({ job, applicant }) => {
+export const JobApply = ({ job, applicant }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -28,6 +28,8 @@ const JobApply = ({ job, applicant }) => {
         jobId: job?._id,
         jobTitle: job?.jobTitle,
         companyName: job?.companyName,
+        // companyLogo: job?.logoUrl,
+        status: "applied",
         applicantId: applicant?.id,
         applicantName: applicant?.name,
         applicantEmail: applicant?.email,

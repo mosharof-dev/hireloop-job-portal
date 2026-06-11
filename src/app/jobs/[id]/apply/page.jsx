@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { FiAlertTriangle, FiArrowLeft, FiInfo, FiStar, FiCheckCircle } from 'react-icons/fi';
 import { getJobById } from '@/lib/api/jobs';
-import JobApply from './JobApply';
+import { JobApply } from './JobApply';
 import { getApplicationByApplicant } from '@/lib/api/application';
 import { getPlanById } from '@/lib/api/plans';
 
