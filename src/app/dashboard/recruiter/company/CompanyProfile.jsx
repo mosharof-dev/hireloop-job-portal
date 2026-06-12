@@ -63,7 +63,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
     const data = Object.fromEntries(formData.entries());
 
     data.logoUrl = logoUrl || company?.logoUrl;
-    data.status = company?.status || "Pending";
+    data.status = company && company?.status ? company.status : "Pending";
     data.recruiterId = recruiter.id;
 
     console.log("Final Form Data:", data);
@@ -73,6 +73,8 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
     const playLoad = await createCompany(data);
 
     if (playLoad.Indicator) {
+      const newCompany = { ...data, _id: playLoad.Indicator };
+      setCompany(newCompany);
       alert("Company profile saved successfully!");
     }
     setIsModalOpen(false);
@@ -387,7 +389,7 @@ export default function CompanyProfile({ recruiter, recruiterCompany }) {
                 </Label>
                 <TextArea
                   placeholder="Tell us about your company's mission..."
-                  className="bg-[#27272a] border-none rounded-lg px-3 py-2 w-full text-white min-h-[100px] outline-none resize-none"
+                  className="bg-[#27272a] border-none rounded-lg px-3 py-2 w-full text-white min-h-25 outline-none resize-none"
                 />
               </TextField>
 

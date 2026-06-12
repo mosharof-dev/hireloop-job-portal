@@ -8,6 +8,7 @@ const CompanyPage =  async () => {
     const company = await getCompanyProfile(user.id);
 
     console.log('Company Page User:', user);
+    console.log('Company Page Company:', company);
     return (
         <div>
             <CompanyProfile recruiter={user} recruiterCompany={company} />

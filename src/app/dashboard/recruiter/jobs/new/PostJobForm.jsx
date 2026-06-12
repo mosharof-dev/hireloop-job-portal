@@ -102,6 +102,64 @@ const PostJobForm = ({ company }) => {
   const listItemClasses =
     "flex items-center justify-between p-2 rounded-md hover:bg-zinc-800 cursor-pointer text-sm text-zinc-200 outline-none data-[focused=true]:bg-zinc-800";
 
+  if (company?.status?.toLowerCase() === "pending") {
+    return (
+      <div className=" flex items-center justify-center  bg-[#0d0d0e] text-white py-12 px-4 sm:px-6 lg:px-8 ">
+        <div className="relative w-full max-w-2xl">
+          {/* Subtle glowing background effect */}
+          <div className="absolute inset-0 bg-linear-to-r from-amber-500/10 via-orange-500/5 to-amber-500/10 blur-3xl -z-10 rounded-[3rem]"></div>
+          
+          <div className="bg-[#121214]/80 backdrop-blur-xl border border-zinc-800/80 rounded-2xl p-10 sm:p-14 shadow-2xl relative overflow-hidden">
+            {/* Top accent line */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-amber-500 via-orange-400 to-amber-600"></div>
+            
+            <div className="flex flex-col items-center text-center">
+              {/* Icon container with rings */}
+              <div className="relative mb-8 mt-4 group">
+                <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl group-hover:bg-amber-500/30 transition-all duration-500"></div>
+                <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-linear-to-b from-zinc-800 to-zinc-900 border border-zinc-700 shadow-inner">
+                  <div className="absolute inset-2 rounded-full border border-zinc-700/50"></div>
+                  <Briefcase className="w-12 h-12 text-amber-400 drop-shadow-[0_0_15px_rgba(251,191,36,0.4)]" />
+                </div>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-4">
+                Approval <span className="text-amber-500 drop-shadow-sm">Pending</span>
+              </h1>
+              
+              <p className="text-zinc-400 text-base sm:text-lg mb-10 max-w-lg mx-auto leading-relaxed">
+                Your company profile is currently under review by our administration team. You will unlock full access to post new jobs as soon as your account is verified.
+              </p>
+              
+              {/* Company Info Card */}
+              <div className="flex flex-col mb-4 sm:flex-row items-center gap-4 bg-black/40 border border-zinc-800 rounded-xl p-4 w-full max-w-md mx-auto shadow-inner">
+                <div className="flex-1 flex flex-col items-center sm:items-start px-2">
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-1">Company</span>
+                  <span className="font-semibold text-zinc-200">{company?.name || "Unknown Company"}</span>
+                </div>
+                
+                <div className="hidden sm:block w-px h-10 bg-zinc-800"></div>
+                
+                <div className="flex-1 flex flex-col items-center sm:items-end px-2">
+                  <span className="text-xs text-zinc-500 uppercase tracking-wider font-medium mb-1">Status</span>
+                  <div className="inline-flex items-center gap-1.5 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-md">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                    </span>
+                    <span className="text-amber-400 font-medium text-sm capitalize">
+                      {company?.status || "Pending"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0d0d0e] text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto bg-[#121214] border border-zinc-900 rounded-xl p-8 shadow-2xl">
@@ -122,7 +180,7 @@ const PostJobForm = ({ company }) => {
               {company?.name}
             </span>
             <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">
-              Approved
+              {company?.status}
             </span>
           </div>
         </div>
