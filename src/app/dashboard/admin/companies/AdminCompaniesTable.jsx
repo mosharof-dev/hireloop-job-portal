@@ -82,9 +82,13 @@ const AdminCompaniesTable = ({ initialCompanies = [] }) => {
     }
   };
 
-  const handleReject = (id) => {
-    console.log(`Rejected company with ID: ${id}`);
+  const handleReject = async (id) => {
     // Add your API action call here
+    const res = await updateCompany(id, { status: "rejected" });
+    console.log(`Rejected company with ID: ${id}`, res);
+    if (res.matchedCount) {
+      toast.success("Company rejected successfully");
+    }
   };
 
   // Generate page numbers for pagination
@@ -106,6 +110,7 @@ const AdminCompaniesTable = ({ initialCompanies = [] }) => {
               <th className="px-6 py-4 font-medium">Website</th>
               <th className="px-6 py-4 font-medium">Industry</th>
               <th className="px-6 py-4 font-medium">Status</th>
+              <th className="px-6 py-4 font-medium">Job Count</th>
               <th className="px-6 py-4 font-medium">Date Submitted</th>
               <th className="px-6 py-4 font-medium text-right">Actions</th>
             </tr>
@@ -174,6 +179,9 @@ const AdminCompaniesTable = ({ initialCompanies = [] }) => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <StatusBadge status={company.status} />
+                    </td>
+                     <td className="px-6 py-4 whitespace-nowrap">
+                     {company.appliedCount}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-400">
                       {formatDate(company.createdAt)}
