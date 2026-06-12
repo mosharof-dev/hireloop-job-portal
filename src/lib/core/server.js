@@ -12,10 +12,10 @@ export const serverGet = async (path) => {
 };
 
 //  generic server mutation function for creating and updating data
-export const serverMutation = async (path, newData) => {
+export const serverMutation = async (path, newData, method = "POST") => {
   try {
     const res = await fetch(`${API_URL}${path}`, {
-      method: "POST",
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },

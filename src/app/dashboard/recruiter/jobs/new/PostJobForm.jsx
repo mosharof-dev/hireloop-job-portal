@@ -179,7 +179,7 @@ const PostJobForm = ({ company }) => {
             <span className="font-semibold text-zinc-300">
               {company?.name}
             </span>
-            <span className="text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">
+            <span className="capitalize text-emerald-500 font-medium bg-emerald-950/30 px-1.5 py-0.5 rounded border border-emerald-900/50">
               {company?.status}
             </span>
           </div>

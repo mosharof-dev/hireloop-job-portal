@@ -11,5 +11,10 @@ export const getCompanyProfile = async (recruiterId) => {
 
 export const getLoggedInRecruiterCompany = async () => {
   const user = await getUserSession();
-  return  getCompanyProfile(user?.id);
+  return getCompanyProfile(user?.id);
+};
+
+export const getCompanyById = async () => {
+  const company = await serverGet(`/api/companies`);
+  return company;
 };
