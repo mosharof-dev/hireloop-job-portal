@@ -17,7 +17,7 @@ import { submitApplication } from "@/lib/actions/application";
 export const JobApply = ({ job, applicant }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-
+ console.log(job, "Job data");
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -28,14 +28,14 @@ export const JobApply = ({ job, applicant }) => {
         jobId: job?._id,
         jobTitle: job?.jobTitle,
         companyName: job?.companyName,
-        // companyLogo: job?.logoUrl,
+        companyLogo: job?.companyLogo,
         status: "applied",
         applicantId: applicant?.id,
         applicantName: applicant?.name,
         applicantEmail: applicant?.email,
         ...formData
     };
-
+   console.log("applicationData",applicationData);
     const res = await submitApplication(applicationData);
     if(res.error) {
         toast.error("Failed to submit application. Please try again.");

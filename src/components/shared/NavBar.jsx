@@ -124,6 +124,7 @@ export default function Navbar() {
   const dashboard = {
     seeker: "/dashboard/seeker",
     recruiter: "/dashboard/recruiter",
+    admin: "/dashboard/admin",
   };
 
   const navLinks = [...baseLinks];

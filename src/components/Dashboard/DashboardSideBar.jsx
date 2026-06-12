@@ -11,7 +11,10 @@ import {
   FiBookmark, 
   FiFileText, 
   FiCreditCard, 
-  FiUser 
+  FiUser,
+  FiGrid,
+  FiBox,
+  FiDollarSign
 } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -35,6 +38,15 @@ const seekerNavItems = [
   { icon: FiSettings, href: "/settings", label: "Settings" },
 ];
 
+const adminNavItems = [
+  { icon: FiGrid, href: "/dashboard/admin", label: "Dashboard" },
+  { icon: FiUsers, href: "/dashboard/admin/users", label: "Users" },
+  { icon: FiBox, href: "/dashboard/admin/companies", label: "Companies" },
+  { icon: FiBriefcase, href: "/dashboard/admin/jobs", label: "Jobs" },
+  { icon: FiDollarSign, href: "/dashboard/admin/payments", label: "Payments" },
+  { icon: FiSettings, href: "/dashboard/admin/settings", label: "Settings" },
+];
+
 const getPlanBadge = (planString) => {
   const plan = (planString || "").toLowerCase();
   if (plan.includes("premium")) {
@@ -49,6 +61,12 @@ const getPlanBadge = (planString) => {
       className: "text-[#3B82F6] border-[#3B82F6]/30 bg-[#3B82F6]/10",
     };
   }
+  if (plan.includes("admin")) {
+    return {
+      text: "Admin Account",
+      className: "text-[#10B981] border-[#10B981]/30 bg-[#10B981]/10",
+    };
+  }
   return {
     text: "Free Account",
     className: "text-neutral-400 border-neutral-700 bg-neutral-800/50",
@@ -56,8 +74,9 @@ const getPlanBadge = (planString) => {
 };
 
 const SidebarContent = ({ pathname, setIsMobileMenuOpen, user }) => {
+  const isAdmin = user?.role === "admin";
   const isRecruiter = user?.role === "recruiter";
-  const navItems = isRecruiter ? recruiterNavItems : seekerNavItems;
+  const navItems = isAdmin ? adminNavItems : (isRecruiter ? recruiterNavItems : seekerNavItems);
   const badge = getPlanBadge(user?.plan);
 
   return (
