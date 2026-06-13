@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getToken } from "./session";
 
 const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -15,8 +16,7 @@ export const authHeader = async () => {
 export const serverGet = async (path) => {
   try {
     const res = await fetch(`${API_URL}${path}`);
-    const data = await res.json();
-    return data;
+    return handleStatus(res);
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -28,7 +28,7 @@ export const protectedFetch = async (path) => {
     headers: await authHeader(),
   });
 
-  return res.json();
+  return handleStatus(res);
 };
 
 //  generic server mutation function for creating and updating data
@@ -42,10 +42,23 @@ export const serverMutation = async (path, newData, method = "POST") => {
       },
       body: JSON.stringify(newData),
     });
-    const data = await res.json();
-    return data;
+
+    console.log("status code", res.status);
+    return handleStatus(res);
   } catch (error) {
     console.error("Error creating company:", error);
     throw error;
   }
+};
+
+const handleStatus = (res) => {
+  if (res.status == 401) {
+    redirect("/unauthorized");
+  }
+
+  if (res.status == 403) {
+    redirect("/unauthorized");
+  }
+
+  return res.json();
 };
