@@ -1,9 +1,10 @@
 import React from 'react';
-import { getCompanyById } from '@/lib/api/companies';
+
 import AdminCompaniesTable from './AdminCompaniesTable';
+import { getCompanies } from '@/lib/api/companies';
 
 const AdminApprovalCompaniesPage = async () => {
-    const companies = await getCompanyById();
+    const companies = await getCompanies();
     
     return (
         <div className="p-6 sm:p-10 bg-[#0d0d0e] min-h-[calc(100vh-4rem)] text-white">

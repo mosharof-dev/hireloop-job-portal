@@ -1,4 +1,4 @@
-import { serverGet } from "../core/server";
+import { protectedFetch, serverGet } from "../core/server";
 import { getUserSession } from "../core/session";
 
 // get company profile function
@@ -14,7 +14,7 @@ export const getLoggedInRecruiterCompany = async () => {
   return getCompanyProfile(user?.id);
 };
 
-export const getCompanyById = async () => {
-  const company = await serverGet(`/api/companies`);
+export const getCompanies = async () => {
+  const company = await protectedFetch(`/api/companies`);
   return company;
 };
