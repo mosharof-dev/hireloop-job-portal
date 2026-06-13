@@ -7,7 +7,16 @@ export const getUserSession = async () => {
     headers: await headers(), // some endpoints might require headers
   });
 
+  console.log(session, " Session Data");
   return session?.user || null;
+};
+
+export const getToken = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(), // some endpoints might require headers
+  });
+
+  return session?.session?.token || null;
 };
 
 export const requireRole = async (role) => {
