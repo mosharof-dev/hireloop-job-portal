@@ -1,26 +1,59 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import JobCard from './JobCard';
 import JobFilter from './JobFilter';
 import { FiSearch } from 'react-icons/fi';
 
 const JobListing = ({ initialJobs }) => {
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [filters, setFilters] = useState({
-        search: '',
-        jobType: '',
-        jobCategory: '',
-        isRemote: false
+        search: searchParams.get('search') || '',
+        jobType: searchParams.get('jobType') || '',
+        jobCategory: searchParams.get('jobCategory') || '',
+        isRemote: searchParams.get('isRemote') === 'true'
     });
     
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
     const itemsPerPage = 12;
 
-    // Professional state update: Reset page when filters change
     const handleFilterChange = (updater) => {
         setFilters(updater);
         setCurrentPage(1);
     };
+
+    // Sync state to URL with debounce to avoid excessive router pushes and create a shareable URL
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            const params = new URLSearchParams(searchParams.toString());
+            
+            if (filters.search) params.set('search', filters.search);
+            else params.delete('search');
+            
+            if (filters.jobType) params.set('jobType', filters.jobType);
+            else params.delete('jobType');
+            
+            if (filters.jobCategory) params.set('jobCategory', filters.jobCategory);
+            else params.delete('jobCategory');
+            
+            if (filters.isRemote) params.set('isRemote', 'true');
+            else params.delete('isRemote');
+
+            if (currentPage > 1) params.set('page', currentPage.toString());
+            else params.delete('page');
+
+            const newQuery = params.toString();
+            if (newQuery !== searchParams.toString()) {
+                router.replace(`${pathname}?${newQuery}`, { scroll: false });
+            }
+        }, 300);
+
+        return () => clearTimeout(timeoutId);
+    }, [filters, currentPage, pathname, router, searchParams]);
 
     const filteredJobs = useMemo(() => {
         if (!initialJobs) return [];
