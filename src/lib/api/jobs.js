@@ -2,8 +2,10 @@ import { serverGet } from "../core/server";
 
 const API_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 
-export const getAllJobs = async () => {
-  return serverGet(`/api/jobs`);
+export const getAllJobs = async (searchParams = {}) => {
+  const query = new URLSearchParams(searchParams).toString();
+  const url = query ? `/api/jobs?${query}` : `/api/jobs`;
+  return serverGet(url);
 };
 export const getJobById = async (jobId) => {
   return serverGet(`/api/jobs/${jobId}`);
