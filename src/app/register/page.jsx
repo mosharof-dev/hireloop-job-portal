@@ -25,10 +25,9 @@ const SignUp = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedRole, setSelectedRole] = useState("seeker");
-   
-  const searchParams = useSearchParams()
-  const redirectTo = searchParams.get("redirect") || "/";
 
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -55,9 +54,32 @@ const SignUp = () => {
     }
 
     if (data) {
+      console.log("Registered User Name:", user.fullName);
+      console.log("Registered User Email:", user.email);
+
       toast.success("Registration Successful! 🎉 Please login to continue.");
+
+      try {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/send-email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: user.email,
+              name: user.fullName,
+              role: user.role,
+              plan: planId,
+            }),
+          },
+        );
+      } catch (emailError) {
+        console.error("Email sending failed:", emailError);
+      }
+
       await authClient.signOut();
-      // router.push("/signin");
       router.push(`/signin?redirect=${redirectTo}`);
     }
   };
@@ -321,14 +343,18 @@ const SignUp = () => {
                       : "border-zinc-800/80 bg-zinc-900/20 hover:border-zinc-700/80 hover:bg-zinc-900/40"
                   }`}
                 >
-                  <div className={`p-3 rounded-xl border transition-colors duration-300 ${
-                    selectedRole === "seeker"
-                      ? "border-blue-500/30 bg-blue-500/10 text-blue-400"
-                      : "border-zinc-800 bg-zinc-950 text-zinc-400"
-                  }`}>
+                  <div
+                    className={`p-3 rounded-xl border transition-colors duration-300 ${
+                      selectedRole === "seeker"
+                        ? "border-blue-500/30 bg-blue-500/10 text-blue-400"
+                        : "border-zinc-800 bg-zinc-950 text-zinc-400"
+                    }`}
+                  >
                     <BiUser className="size-6" />
                   </div>
-                  <span className="mt-3 font-bold text-sm text-white">Job Seeker</span>
+                  <span className="mt-3 font-bold text-sm text-white">
+                    Job Seeker
+                  </span>
                   <span className="text-[11px] text-zinc-500 mt-1 text-center font-medium leading-tight">
                     Looking for new opportunities
                   </span>
@@ -346,14 +372,18 @@ const SignUp = () => {
                       : "border-zinc-800/80 bg-zinc-900/20 hover:border-zinc-700/80 hover:bg-zinc-900/40"
                   }`}
                 >
-                  <div className={`p-3 rounded-xl border transition-colors duration-300 ${
-                    selectedRole === "recruiter"
-                      ? "border-orange-500/30 bg-orange-500/10 text-orange-400"
-                      : "border-zinc-800 bg-zinc-950 text-zinc-400"
-                  }`}>
+                  <div
+                    className={`p-3 rounded-xl border transition-colors duration-300 ${
+                      selectedRole === "recruiter"
+                        ? "border-orange-500/30 bg-orange-500/10 text-orange-400"
+                        : "border-zinc-800 bg-zinc-950 text-zinc-400"
+                    }`}
+                  >
                     <BiBuilding className="size-6" />
                   </div>
-                  <span className="mt-3 font-bold text-sm text-white">Recruiter</span>
+                  <span className="mt-3 font-bold text-sm text-white">
+                    Recruiter
+                  </span>
                   <span className="text-[11px] text-zinc-500 mt-1 text-center font-medium leading-tight">
                     Hiring top-tier talent
                   </span>
